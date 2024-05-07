@@ -891,11 +891,23 @@ export default class LiquidityModule extends ModuleBase {
 
           lpAmount,
           lpAmount
-            .mul(new BN(new Decimal(poolInfo.mintAmountA).mul(10 ** poolInfo.mintA.decimals).toFixed(0)))
-            .div(new BN(new Decimal(poolInfo.lpAmount).mul(10 ** poolInfo.lpMint.decimals).toFixed(0))),
+            .mul(
+              new BN(
+                new Decimal(poolInfo.mintAmountA).mul(10 ** poolInfo.mintA.decimals).toFixed(0, Decimal.ROUND_DOWN),
+              ),
+            )
+            .div(
+              new BN(new Decimal(poolInfo.lpAmount).mul(10 ** poolInfo.lpMint.decimals).toFixed(0, Decimal.ROUND_DOWN)),
+            ),
           lpAmount
-            .mul(new BN(new Decimal(poolInfo.mintAmountB).mul(10 ** poolInfo.mintB.decimals).toFixed(0)))
-            .div(new BN(new Decimal(poolInfo.lpAmount).mul(10 ** poolInfo.lpMint.decimals).toFixed(0))),
+            .mul(
+              new BN(
+                new Decimal(poolInfo.mintAmountB).mul(10 ** poolInfo.mintB.decimals).toFixed(0, Decimal.ROUND_DOWN),
+              ),
+            )
+            .div(
+              new BN(new Decimal(poolInfo.lpAmount).mul(10 ** poolInfo.lpMint.decimals).toFixed(0), Decimal.ROUND_DOWN),
+            ),
         ),
       ],
       instructionTypes: [InstructionType.CpmmWithdrawLiquidity],
