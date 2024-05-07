@@ -158,7 +158,7 @@ export class TxBuilder {
     };
   }
 
-  public addCustomComputeBudget(config?: ComputeBudgetConfig) {
+  public addCustomComputeBudget(config?: ComputeBudgetConfig): boolean {
     if (config) {
       const { instructions, instructionTypes } = addComputeBudget(config);
       this.instructions.unshift(...instructions);
@@ -505,12 +505,13 @@ export class TxBuilder {
   ): Promise<MultiTxBuildData> {
     const { computeBudgetConfig, ...extInfo } = props || {};
 
-    let computeBudgetData: { instructions: TransactionInstruction[]; instructionTypes: string[] } = computeBudgetConfig
-      ? addComputeBudget(computeBudgetConfig)
-      : {
-          instructions: [],
-          instructionTypes: [],
-        };
+    const computeBudgetData: { instructions: TransactionInstruction[]; instructionTypes: string[] } =
+      computeBudgetConfig
+        ? addComputeBudget(computeBudgetConfig)
+        : {
+            instructions: [],
+            instructionTypes: [],
+          };
 
     const signerKey: { [key: string]: Signer } = this.signers.reduce(
       (acc, cur) => ({ ...acc, [cur.publicKey.toBase58()]: cur }),
@@ -675,12 +676,13 @@ export class TxBuilder {
     const newCacheLTA = await getMultipleLookupTableInfo({ connection: this.connection, address: needCacheLTA });
     for (const [key, value] of Object.entries(newCacheLTA)) lookupTableAddressAccount[key] = value;
 
-    let computeBudgetData: { instructions: TransactionInstruction[]; instructionTypes: string[] } = computeBudgetConfig
-      ? addComputeBudget(computeBudgetConfig)
-      : {
-          instructions: [],
-          instructionTypes: [],
-        };
+    const computeBudgetData: { instructions: TransactionInstruction[]; instructionTypes: string[] } =
+      computeBudgetConfig
+        ? addComputeBudget(computeBudgetConfig)
+        : {
+            instructions: [],
+            instructionTypes: [],
+          };
 
     const blockHash = await getRecentBlockHash(this.connection);
 
