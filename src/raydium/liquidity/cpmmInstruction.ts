@@ -1,10 +1,10 @@
 import BN from "bn.js";
 
-import { u64 } from "@project-serum/borsh";
 import { AccountMeta, PublicKey, TransactionInstruction } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID } from "@solana/spl-token";
-import { struct } from "buffer-layout";
 import { SYSTEM_PROGRAM_ID, RENT_PROGRAM_ID, MEMO_PROGRAM_ID2 } from "@/common";
+
+import { struct, u64 } from "@/marshmallow";
 
 const anchorDataBuf = {
   initialize: [175, 175, 109, 31, 13, 152, 155, 237],

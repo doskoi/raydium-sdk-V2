@@ -35,7 +35,7 @@ export default class TokenModule extends ModuleBase {
     super(params);
   }
 
-  public async load(params?: LoadParams & { fetchTokenPrice?: boolean; type?: JupTokenType }): Promise<void> {
+  public async load(params?: LoadParams & { type?: JupTokenType }): Promise<void> {
     this.checkDisabled();
     const { forceUpdate = false, type = JupTokenType.Strict } = params || {};
     const { mintList, blacklist } = await this.scope.fetchV3TokenList(forceUpdate);
@@ -93,7 +93,6 @@ export default class TokenModule extends ModuleBase {
     });
 
     this._tokenList = Array.from(this._tokenMap).map((data) => data[1]);
-    // if (fetchTokenPrice) await this.fetchTokenPrices(forceUpdate);
   }
 
   get tokenList(): TokenInfo[] {
